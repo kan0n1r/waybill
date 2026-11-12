@@ -1,0 +1,7 @@
+build
+.gradle
+.env
+exports/*
+!exports/.gitkeep
+*.class
+.idea

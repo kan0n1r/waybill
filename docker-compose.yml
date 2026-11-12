@@ -1,0 +1,37 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: waybill
+      POSTGRES_USER: ${DB_USER:-waybill}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-waybill_dev_pw}
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-waybill} -d waybill"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  carrier-gateway:
+    image: nginx:alpine
+    volumes:
+      - ./internal/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./internal/www:/usr/share/nginx/html:ro
+
+  app:
+    build: .
+    ports:
+      - "${APP_PORT:-8080}:8080"
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/waybill
+      DB_USER: ${DB_USER:-waybill}
+      DB_PASSWORD: ${DB_PASSWORD:-waybill_dev_pw}
+    depends_on:
+      db:
+        condition: service_healthy
+      carrier-gateway:
+        condition: service_started
+
+volumes:
+  dbdata:

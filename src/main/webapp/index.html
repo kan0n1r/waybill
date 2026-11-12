@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Waybill - Parcel tracking and shipping</title>
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"></head>
+<body>
+<div class="auth">
+  <section class="auth-brand">
+    <a class="wordmark" href="/"><img src="/img/logo-mark.svg" width="36" height="36" alt="">Waybill</a>
+    <svg class="route" viewBox="0 0 560 360" fill="none" aria-hidden="true">
+      <path d="M20 320C120 320 130 200 230 200S330 60 420 80 520 30 540 20" stroke="#d9480f" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/>
+      <g fill="#0f1f2e" stroke="#d9480f" stroke-width="4"><circle cx="20" cy="320" r="9"/><circle cx="230" cy="200" r="9"/><circle cx="420" cy="80" r="9"/></g>
+      <circle cx="540" cy="20" r="12" fill="#d9480f"/>
+    </svg>
+    <h1>Know where every parcel is.</h1>
+    <section class="track-card" aria-labelledby="track-title">
+      <h2 id="track-title">Track a parcel</h2>
+      <p>Enter a tracking code or a destination city.</p>
+      <form id="track-form" class="row"><label class="sr-only" for="track-q">Tracking code or city</label>
+        <input id="track-q" placeholder="WB-100001 or Prague" autocomplete="off"><button class="btn">Track</button></form>
+      <ul class="track-results" id="track-results"></ul>
+      <div class="track-detail" id="track-detail"></div>
+    </section>
+  </section>
+  <section class="auth-panel">
+    <div class="auth-card">
+      <form id="login" novalidate>
+        <h2>Sign in</h2><p class="muted">Manage shipments, your wallet and deliveries.</p>
+        <label for="email">Email</label><input id="email" type="email" autocomplete="username" required>
+        <label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required>
+        <label class="row" style="font-weight:400;margin-top:12px"><input id="remember" type="checkbox" style="width:auto;flex:none"><span>Keep me signed in on this device</span></label>
+        <p class="form-error" id="err" role="alert"></p>
+        <button class="btn full" type="submit">Sign in</button>
+        <p style="margin-top:16px"><button type="button" class="link-btn" id="to-forgot">Forgot your password?</button></p>
+      </form>
+      <form id="forgot" novalidate hidden>
+        <h2>Reset your password</h2><p class="muted" id="forgot-help">We'll email you a reset token.</p>
+        <label for="f-email">Email</label><input id="f-email" type="email" required>
+        <div id="reset-fields" hidden>
+          <label for="f-token">Reset token</label><input id="f-token" autocomplete="off">
+          <label for="f-pass">New password (8+ characters)</label><input id="f-pass" type="password" autocomplete="new-password">
+        </div>
+        <p class="form-error" id="f-err" role="alert"></p>
+        <button class="btn full" type="submit" id="f-submit">Send reset token</button>
+        <p style="margin-top:16px"><button type="button" class="link-btn" id="to-login">Back to sign in</button></p>
+      </form>
+    </div>
+  </section>
+</div>
+<script src="/login.js"></script>
+</body></html>
